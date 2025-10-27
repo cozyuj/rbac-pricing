@@ -9,14 +9,15 @@ import java.time.LocalDateTime;
 public class ProjectReq {
     private String name;
     private LocalDateTime deadline;
+    private String status;
     private Long ownerId;
     private Long createdById;
 
     @Builder
-    public ProjectReq(String name, LocalDateTime deadline, Long ownerId, Long createdById) {
+    public ProjectReq(String name, LocalDateTime deadline, String status, Long ownerId) {
         this.name = name;
         this.deadline = deadline;
+        this.status = status;
         this.ownerId = ownerId;
-        this.createdById = createdById;
     }
 }
