@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -21,7 +22,9 @@ public class UserController {
 
     @PostMapping("/new")
     public ResponseEntity<?> createUser(@RequestBody UserReq req) {
-        return ResponseEntity.ok(userService.createUser(req));
+        UserRes res = userService.createUser(req);
+        URI location = URI.create("/api/v1/users/" + res.getId());
+        return ResponseEntity.created(location).body(res);
     }
 
     @GetMapping("/{id}")
@@ -40,13 +43,13 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }
 
     @PatchMapping("/{id}/update")
-    public ResponseEntity<String> updateUserRoleAndPlan(
+    public ResponseEntity<?> updateUserRoleAndPlan(
             @PathVariable Long id,
             @RequestParam Role role,
             @RequestParam Plan plan) {
