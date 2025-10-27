@@ -32,4 +32,7 @@ public class User extends BaseTimeEntity {
 
     @ManyToMany(mappedBy = "members")
     private List<Project> joinedProjects = new ArrayList<>();
+
+    @OneToMany(mappedBy = "createdBy")
+    private List<Project> createdProjects = new ArrayList<>();
 }

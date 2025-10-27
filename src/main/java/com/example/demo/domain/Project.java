@@ -26,7 +26,6 @@ public class Project extends BaseTimeEntity {
     @JoinColumn(name = "owner_id", nullable = false)
     private User owner;
 
-
     // 프로젝트 참여자 (ManyToMany)
     @ManyToMany
     @JoinTable(
@@ -38,4 +37,9 @@ public class Project extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Task> tasks = new ArrayList<>();
+
+    // 프로젝트 생성자 (Created By)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "created_by_id", nullable = false)
+    private User createdBy;
 }
