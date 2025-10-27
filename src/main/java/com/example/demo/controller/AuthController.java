@@ -29,7 +29,7 @@ public class AuthController {
                 .orElseThrow(() -> new ApiException(ErrorHandling.NOT_FOUND_EXCEPTION));
 
         if (!passwordEncoder.matches(req.getPassword(), user.getPassword())) {
-            throw new ApiException(ErrorHandling.FORBIDDEN_EXCEPTION);
+            throw new ApiException(ErrorHandling.ACCESS_DENIED_EXCEPTION);
         }
 
         String token = jwtUtil.generateToken(user);
