@@ -1,4 +1,10 @@
 package com.example.demo.repository;
 
-public interface ProjectRepository {
+import com.example.demo.domain.Project;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ProjectRepository extends JpaRepository<Project, Long> {
+    boolean existsByName(String name);
+
+    long countByOwnerId(Long id);
 }
